@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <title>Javascript 101</title>
+
+  <!-- Required stylesheet -->
+  <link rel="stylesheet" href="../deck.js/core/deck.core.css">
+
+  <!-- Extension CSS files go here. Remove or add as needed. -->
+  <link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+  <link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+  <link rel="stylesheet" href="../deck.js/extensions/navigation/deck.navigation.css">
+  <link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+  <link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+  <link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+  <!-- Codemirror theme -->
+  <link rel="stylesheet" href="../deck.js/extensions/codemirror/deck.codemirror.css">
+  <link rel="stylesheet" href="../deck.js/extensions/codemirror/themes/lesser-dark.css">
+
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" href="../deck.js/themes/style/dark.css">
+
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" href="../deck.js/themes/transition/cube.css">
+
+  <!-- Google Font -->
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,700' rel='stylesheet' type='text/css'>
+
+  <!-- Required Modernizr file -->
+  <script src="../deck.js/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+<section class="slide">
+  <h1>Javascript 101</h1>
+</section>
+
+<section class="slide">
+  <h2>What this presentation covers</h2>
+  <ul>
+    <li> Core Language Syntax
+    <li> Functions
+    <li> Objects
+    <li> Arrays
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Before We Start</h2>
+  <ul>
+    <li> Javascript: The Good Parts
+    <li> Developer Tools
+    <li> JSLint
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Javascript Object Literal Notation
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var a = [1,2,3];
+var b = {
+  foo: a,
+  bar: 12
+}
+console.log(b);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Functions
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function foo (name) {
+  console.log("Hello " + name);
+}
+foo("Anon Amos");
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Weakly Typed
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var bar = "bar";
+function foo () {
+  return bar;
+}
+bar = 123;
+console.log(foo());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> <em>Untyped</em> for all practical purposes
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var foo = "123";
+function bar () {
+  return 145;
+}
+console.log(foo + bar);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> <em>Untyped</em> for all practical purposes
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var foo = "123";
+var bar = 123;
+var baz = 123.0;
+console.log(foo == bar && bar == baz);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Variable Scope Is Global By Default
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var a = 123;
+function foo () {
+  var a = 456;
+}
+function bar() {
+  a = 789;
+}
+foo();
+console.log(a);
+bar();
+console.log(a);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Missing var can wreak havoc
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+for(var i = 0; i < 10; i++) {
+  sub();
+  console.log(i);
+}
+
+function sub() {
+  // Missing var here
+  for(i = 0; i < 10; i++) {
+    // Do something
+  }
+}
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Block oriented syntax like C
+      <li> But no block scope. Only function scope.
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function foo () {
+  for(var i=0; i<10; i++) {
+    // Do something
+  }
+  console.log(i);
+}
+foo();
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> All the usual control structures
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var i = 10;
+while(true) {
+  i--;
+  if(i<0) {
+    break;
+  }
+}
+console.log(i);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Even Do While
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var i = 10;
+do {
+  i--;
+} while (i>0);
+console.log(i);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Switch Case Expression Need Not Be Constant
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function i() {
+  return 42;
+}
+function foo() {
+  switch(i()) {
+    case 0: return 'foo';
+    case 1:
+    case 2:
+      return 'bar';
+    default:
+      return 'baz';
+  }
+}
+console.log(foo());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Try Catch
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+try {
+  var i = window.abcd.efgh;
+} catch(e) {
+  console.log(e.name);
+  console.log(e.message);
+}
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> Try Catch Finally
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+try {
+  var i = abcd.efgh;
+} catch(e) {
+  var j = abcd.efgh;
+  console.log(e.name);
+  console.log(e.message);
+} finally {
+  console.log(12);
+}
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Core Syntax</h2>
+  <div>
+    <ul>
+      <li> The "Exception" can be just a plain object
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+try {
+  throw {
+    name: "UnknownError",
+    message: "Something unexpected happened"
+  }
+} catch(e) {
+  console.log(e.name);
+  console.log(e.message);
+}
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Functions</h2>
+  <div>
+    <div>What I love the most about Javascript:</div>
+    <em>&nbsp;&nbsp;&nbsp;&nbsp;Javascript is an excellent functional programming language</em>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Functions</h2>
+  <div>
+    <ul>
+      <li> Lightweight function definition syntax
+      <li> Functions are subject to <em>hoisting</em>
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+xyz("a");
+function xyz (a) {
+  console.log('Called with argument: ' + a);
+}
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Functions</h2>
+  <div>
+    <ul>
+      <li> Even Lighter Anonymous Functions
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var xyz = function (a) {
+  console.log('Called with argument: ' + a);
+}
+xyz("a");
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Functions</h2>
+  <div>
+    <ul>
+      <li> Two more ways to call functions
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var xyz = function (a, b) {
+  console.log('Called with argument: ' + a + ', ' + b);
+}
+xyz.call(null, 1, 2);
+xyz.apply(null, [3, 4]);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Functions</h2>
+  <div>
+    <ul>
+      <li> Nested Functions Are 'Closures'
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var xyz = function (a) {
+  return function () {
+    return a;
+  };
+}
+var func = xyz(123);
+console.log(func());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Functions</h2>
+  <div>
+    <ul>
+      <li> Closures can be very useful but tricky
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function getComputations (max) {
+  var i = 0, computations = [];
+  for(i=0; i<max; i++) {
+    computations[i] = function() {
+      return i*2; // Complex calculation
+    };
+  }
+  return computations;
+}
+var comps = getComputations(10);
+console.log(comps[2]());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Lightweight Dot Notation For Access
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {abcd: 123};
+console.log(o.abcd);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Objects Are Really Associative Arrays
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {abcd: 123};
+console.log(o['abcd']);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Objects Can Have Associated "Methods"
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {abcd: function() {return 123;}};
+console.log(o.abcd());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Methods can access object properties using 'this'
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {
+  val: 123,
+  getVal: function() {
+    return this.val;
+  }
+};
+console.log(o.getVal());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Use The Module Pattern To Model Encapsulation
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function getObj() {
+  var val = 123;
+  var o = {
+    getVal: function() {
+      return val;
+    }
+  };
+  return o;
+}
+var o = getObj();
+console.log(o.val);
+console.log(o.getVal());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Where is 'new'?
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function A() {this.val = 123;}
+var a = new A();
+console.log(a);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Model Inheritence With 'prototype'
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {
+  val: 123,
+  getVal: function() {
+    return this.val;
+  }
+};
+var O1 = function() {};
+O1.prototype = o;
+var a = new O1();
+console.log(a.getVal());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Prototypes are read only
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {
+  val: 123
+};
+var O1 = function() {};
+O1.prototype = o;
+var a = new O1();
+console.log(a.val);
+a.val = 456;
+console.log(a.val);
+delete a.val;
+console.log(a.val);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Enumerating Object Properties Using For In Loop
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {
+  val1: 123,
+  val2: 456
+};
+var O1 = function() {};
+O1.prototype = o;
+var a = new O1();
+a.newval = 789;
+for(i in a) {
+  console.log("a["+i+"] = "+a[i]);
+}
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Avoiding Superclass Properties
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var o = {
+  val1: 123,
+  val2: 456
+};
+var O1 = function() {};
+O1.prototype = o;
+var a = new O1();
+a.newval = 789;
+for(i in a) {
+  if(a.hasOwnProperty(i) && typeof a[i] !== 'function') {
+    console.log("a["+i+"] = "+a[i]);
+  }
+}
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Classical Inheritence
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function Foo(x) {
+  this.x = x;
+}
+Foo.prototype.getX = function() {
+  return this.x;
+};
+function Bar(x) {
+  Foo.call(this, x);
+}
+Bar.prototype = new Foo();
+var bar = new Bar(42);
+console.log(bar.getX());
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Object.create
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var a = {a: 1};
+var b = Object.create(a);
+console.log(b.a);
+var c = Object.create(b);
+console.log(c.a);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> __proto__ property
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var a = {a: 1};
+var b = Object.create(a);
+console.log(b.__proto__ === a);
+var c = Object.create(b);
+console.log(c.__proto__.__proto__ === a);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Objects</h2>
+  <div>
+    <ul>
+      <li> Augmenting built-in types
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+String.prototype.trim = function() {
+  return this.replace(/^\s+|\s+$/g, '');
+};
+var s = "  extra spaces  ".trim();
+console.log("\"" + s + "\"");
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Arrays</h2>
+  <div>
+    <ul>
+      <li> Arrays Are Sparse
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var a = [];
+a[0] = 0;
+console.log(a.length);
+a[1000000] = 1000000;
+console.log(a.length);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Arrays</h2>
+  <div>
+    <ul>
+      <li> Arrays Are Also Objects
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+var a = [];
+a['whoa'] = 'whoa';
+console.log(a.whoa);
+console.log(a.length);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Arrays</h2>
+  <div>
+    <ul>
+      <li> Not All "Array"s Are Really Arrays
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function foo() {
+  console.log(arguments);
+  console.log(arguments.length);
+  console.log(typeof arguments.slice);
+}
+foo(1,2,3,4);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Arrays</h2>
+  <div>
+    <ul>
+      <li> Converting Array-Like Objects to Arrays
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function foo() {
+  var args = Array.prototype.slice.call(arguments, 0)
+  console.log(args);
+  console.log(args.length);
+  console.log(typeof args.slice);
+}
+foo(1,2,3,4);
+    </textarea>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Some More Fun</h2>
+  <div>
+    <ul>
+      <li> Javascript Is Anything But Consistent So Test Test Everything
+    </ul>
+  </div>
+  <div>
+    <textarea id="code" name="code" class="code" mode="javascript" style="display: none;" runnable="true">
+function foo() {}
+delete foo;
+console.log(foo);
+var foo = 123;
+delete foo;
+console.log(foo);
+    </textarea>
+  </div>
+</section>
+<!-- End slides. -->
+
+
+<!-- Begin extension snippets. Add or remove as needed. -->
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+  <label for="goto-slide">Go to slide:</label>
+  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+  <datalist id="goto-datalist"></datalist>
+  <input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+<!-- End extension snippets. -->
+
+
+<!-- Required JS files. -->
+<script src="../deck.js/jquery-1.7.2.min.js"></script>
+<script src="../deck.js/core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="../deck.js/core/deck.core.js"></script>
+<script src="../deck.js/extensions/hash/deck.hash.js"></script>
+<script src="../deck.js/extensions/menu/deck.menu.js"></script>
+<script src="../deck.js/extensions/goto/deck.goto.js"></script>
+<script src="../deck.js/extensions/status/deck.status.js"></script>
+<script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+<script src="../deck.js/extensions/scale/deck.scale.js"></script>
+
+<!-- Base codemiror code -->
+<script src="../deck.js/extensions/codemirror/codemirror.js"></script>
+<!-- javascript mode -->
+<script src="../deck.js/extensions/codemirror/mode/javascript/javascript.js"></script>
+<!-- html mode (note html mode requires xml, css and javascript) -->
+<script src="../deck.js/extensions/codemirror/mode/xml/xml.js"></script>
+<script src="../deck.js/extensions/codemirror/mode/css/css.js"></script>
+<script src="../deck.js/extensions/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<!-- Plugin code -->
+<script src="../deck.js/extensions/codemirror/deck.codemirror.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>
+

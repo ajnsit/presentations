@@ -1,0 +1,8 @@
+.cm-s-default span.cm-comment { color: #a86; }
+.cm-s-default span.cm-keyword { font-weight: bold; color: blue; }
+.cm-s-default span.cm-string { color: #a22; }
+.cm-s-default span.cm-builtin { font-weight: bold; color: #077; }
+.cm-s-default span.cm-special { font-weight: bold; color: #0aa; }
+.cm-s-default span.cm-variable { color: black; }
+.cm-s-default span.cm-number, .cm-s-neat span.cm-atom { color: #3a3; }
+.cm-s-default span.cm-meta {color: #555;}
